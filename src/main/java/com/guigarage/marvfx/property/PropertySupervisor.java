@@ -49,6 +49,7 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 		return addRule(new WillChangeByDefinedCountRule<U>(count));
 	}
 
+	@SuppressWarnings("unchecked")
 	public PropertyRuleObserver<U> assertWillChangeThisWay(U... assertedValues) {
 		return addRule(new WillChangeThisWayRule<U>(assertedValues));
 	}

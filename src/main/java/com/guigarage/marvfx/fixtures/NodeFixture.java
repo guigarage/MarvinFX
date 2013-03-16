@@ -1,5 +1,7 @@
 package com.guigarage.marvfx.fixtures;
 
+import java.util.concurrent.Callable;
+
 import com.guigarage.marvfx.property.PropertySupervisor;
 import com.guigarage.marvfx.util.MarvinFxUtilities;
 
@@ -30,6 +32,21 @@ public class NodeFixture<T extends Node> {
 			mouse = new NodeMouseControl<T>(node);
 		}
 		return mouse;
+	}
+	
+	public synchronized void requestFocus() {
+		try {
+			MarvinFxUtilities.runCallableInPlatformThread(new Callable<Void>() {
+
+				@Override
+				public Void call() throws Exception {
+					node.requestFocus();
+					return null;
+				}
+			});
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
 	}
 	
 	public T getNode() {

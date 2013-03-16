@@ -9,6 +9,7 @@ public class WillChangeThisWayRule<U> extends AbstractPropertyRule<U> {
 
 	private int currentIndex;
 
+	@SuppressWarnings("unchecked")
 	public WillChangeThisWayRule(U... assertedValues) {
 		this.assertedValues = assertedValues;
 		currentIndex = 0;

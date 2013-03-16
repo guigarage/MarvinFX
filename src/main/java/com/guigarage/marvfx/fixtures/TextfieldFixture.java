@@ -15,7 +15,7 @@ public class TextfieldFixture extends NodeFixture<TextField> {
 		super(node);
 	}
 	
-	public PropertySupervisor<String> createTextSupervisor() {
+	public PropertySupervisor<String> createTextPropertySupervisor() {
 		return new PropertySupervisor<>(getNode().textProperty());
 	}
 }

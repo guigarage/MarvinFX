@@ -16,7 +16,7 @@ public class MarvinFxApplication extends Application {
 	}
 	
 	private static void innerLaunch() {
-		launch(null);
+		launch(new String[0]);
 	}
 	
 	public static void launch() {
