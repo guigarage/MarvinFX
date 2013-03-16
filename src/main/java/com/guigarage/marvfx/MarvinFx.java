@@ -8,7 +8,7 @@ import javafx.util.Duration;
 
 import com.guigarage.marvfx.robot.MarvinFxRobotType;
 import com.guigarage.marvfx.runtime.MarvinFxRuntime;
-import com.guigarage.marvfx.util.DummyFail;
+import com.guigarage.marvfx.util.DefaultFail;
 import com.guigarage.marvfx.util.MarvinFxFail;
 
 
@@ -18,7 +18,7 @@ public class MarvinFx {
 	
 	private MarvinFxRobotType robotType = MarvinFxRobotType.AWT_ROBOT;
 	
-	private MarvinFxFail fail = new DummyFail();
+	private MarvinFxFail fail = new DefaultFail();
 	
 	public MarvinFx() {
 	}
