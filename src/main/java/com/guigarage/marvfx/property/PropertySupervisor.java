@@ -160,6 +160,8 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		} finally {
+			reset();
 		}
 	}
 	
