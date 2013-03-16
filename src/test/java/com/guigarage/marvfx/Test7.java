@@ -1,53 +1,60 @@
 package com.guigarage.marvfx;
 
-import org.junit.Test;
-
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Scene;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class Test7 extends MarvinFxTest {
+import org.junit.Test;
 
-//	@Override
-//	protected Scene getScene() {
-//		final Button b1 = new Button("Hello MarvFX");
-//		BorderPane pane = new BorderPane();
-//		pane.setCenter(b1);
-//		final Scene myScene = new Scene(pane);
-//		return myScene;
-//	}
+import com.guigarage.marvfx.fixtures.NodeFixture;
+import com.guigarage.marvfx.property.PropertySupervisor;
+
+public class Test7 {
 
 	@Test
 	public void test1() {
-		System.out.println("Test");
+		final Button b1 = new Button("Hello MarvFX");
+		BorderPane pane = new BorderPane();
+		pane.setCenter(b1);
 		
-		Platform.runLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				final Button b1 = new Button("Hello MarvFX");
-				BorderPane pane = new BorderPane();
-				pane.setCenter(b1);
-				final Scene myScene = new Scene(pane, 800, 600);
-				
-				Stage myStage = new Stage();
-				myStage.setScene(myScene);
-				myStage.sizeToScene();
-				myStage.show();
-			}
-		});
-		try {
-			Thread.sleep(100000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		MarvinFx.show(pane);
+		MarvinFx.sleep(2000);
+		NodeFixture<Button> b1Fixture = new NodeFixture<Button>(b1);
+		b1Fixture.mouse().click();
+		MarvinFx.sleep(2000);
 	}
 	
 	@Test
 	public void test2() {
+		final Button b1 = new Button("Hello MarvFX 2");
 		
+		Stage s = MarvinFx.show(b1);
+		s.setX(0);
+		s.setY(0);
+		MarvinFx.sleep(2000);
+		NodeFixture<Button> b1Fixture = new NodeFixture<Button>(b1);
+		b1Fixture.mouse().click();
+		MarvinFx.sleep(2000);
+	}
+	
+	@Test
+	public void test3() {
+		final Button b1 = new Button("Test123");
+		b1.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				b1.setText("clicked...");
+			}
+		});
+		MarvinFx.show(b1);
+		PropertySupervisor<String> buttonTextSupervisor = new PropertySupervisor<>(b1.textProperty());
+		buttonTextSupervisor.assertCurrentValue("Test123");
+		NodeFixture<Button> b1Fixture = new NodeFixture<Button>(b1);
+		b1Fixture.mouse().click();
+		MarvinFx.sleep(50);
+		buttonTextSupervisor.assertCurrentValue("clicked...");
 	}
 }

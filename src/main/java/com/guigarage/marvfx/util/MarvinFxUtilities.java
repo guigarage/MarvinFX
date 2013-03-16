@@ -1,5 +1,9 @@
 package com.guigarage.marvfx.util;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -73,5 +77,15 @@ public class MarvinFxUtilities {
 			}
 		}
 		return null;
+	}
+	
+	public static <T> T runCallableInPlatformThread(Callable<T> callable) throws Exception {
+		if(Platform.isFxApplicationThread()) {
+			return callable.call();
+		} else {
+			FutureTask<T> future = new FutureTask<>(callable);
+			Platform.runLater(future);
+			return future.get();
+		}
 	}
 }
