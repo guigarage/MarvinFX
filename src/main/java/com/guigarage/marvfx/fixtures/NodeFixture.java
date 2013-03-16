@@ -11,29 +11,38 @@ import javafx.scene.Scene;
 public class NodeFixture<T extends Node> {
 
 	private T node;
-	
+
 	private NodeMouseControl<T> mouse;
-	
+
+	private NodeKeyControl<T> keyboard;
+
 	@SuppressWarnings("unchecked")
 	public NodeFixture(Scene scene, String nodeId) {
 		this((T) MarvinFxUtilities.findNodeById(scene, nodeId));
 	}
-	
+
 	public NodeFixture(T node) {
 		this.node = node;
 	}
-	
+
 	public PropertySupervisor<String> createPropertyMeterForId() {
 		return new PropertySupervisor<>(node.idProperty());
 	}
-	
+
 	public synchronized NodeMouseControl<T> mouse() {
-		if(mouse == null) {
+		if (mouse == null) {
 			mouse = new NodeMouseControl<T>(node);
 		}
 		return mouse;
 	}
-	
+
+	public synchronized NodeKeyControl<T> getKeyboard() {
+		if (keyboard == null) {
+			keyboard = new NodeKeyControl<T>(node);
+		}
+		return keyboard;
+	}
+
 	public synchronized void requestFocus() {
 		try {
 			MarvinFxUtilities.runCallableInPlatformThread(new Callable<Void>() {
@@ -48,7 +57,7 @@ public class NodeFixture<T extends Node> {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	public T getNode() {
 		return node;
 	}
