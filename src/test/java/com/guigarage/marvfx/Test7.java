@@ -18,7 +18,6 @@ public class Test7 {
 		final Button b1 = new Button("Hello MarvFX");
 		BorderPane pane = new BorderPane();
 		pane.setCenter(b1);
-		
 		MarvinFx.show(pane);
 		MarvinFx.sleep(2000);
 		NodeFixture<Button> b1Fixture = new NodeFixture<Button>(b1);
@@ -29,7 +28,6 @@ public class Test7 {
 	@Test
 	public void test2() {
 		final Button b1 = new Button("Hello MarvFX 2");
-		
 		Stage s = MarvinFx.show(b1);
 		s.setX(0);
 		s.setY(0);
@@ -56,6 +54,5 @@ public class Test7 {
 		b1Fixture.mouse().click();
 		buttonTextSupervisor.assertCurrentValue("clicked...");
 		MarvinFx.sleep(2000);
-
 	}
 }
