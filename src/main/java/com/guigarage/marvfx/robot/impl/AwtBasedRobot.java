@@ -24,6 +24,7 @@ public class AwtBasedRobot extends MarvinFxRobot {
 			}
 			awtRobot = new Robot();
 			awtRobot.setAutoWaitForIdle(true);
+			awtRobot.setAutoDelay(50);
 		} catch (AWTException e) {
 			throw new RuntimeException("AWT is not working!", e);
 		}

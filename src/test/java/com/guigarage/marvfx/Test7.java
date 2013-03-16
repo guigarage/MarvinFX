@@ -54,7 +54,8 @@ public class Test7 {
 		buttonTextSupervisor.assertCurrentValue("Test123");
 		NodeFixture<Button> b1Fixture = new NodeFixture<Button>(b1);
 		b1Fixture.mouse().click();
-		MarvinFx.sleep(50);
 		buttonTextSupervisor.assertCurrentValue("clicked...");
+		MarvinFx.sleep(2000);
+
 	}
 }
