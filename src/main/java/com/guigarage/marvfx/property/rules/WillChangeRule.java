@@ -1,9 +1,9 @@
 package com.guigarage.marvfx.property.rules;
 
-import com.guigarage.marvfx.property.AbstractPropertyRule;
+import com.guigarage.marvfx.property.AbstractPropertyFutureRule;
 import com.guigarage.marvfx.property.RuleFail;
 
-public class WillChangeRule<U> extends AbstractPropertyRule<U> {
+public class WillChangeRule<U> extends AbstractPropertyFutureRule<U> {
 
 	private boolean changed = false;
 	

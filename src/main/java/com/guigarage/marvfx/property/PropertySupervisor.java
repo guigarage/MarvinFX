@@ -13,13 +13,17 @@ import com.guigarage.marvfx.property.rules.WillChangeByDefinedCountRule;
 import com.guigarage.marvfx.property.rules.WillChangeRule;
 import com.guigarage.marvfx.property.rules.WillChangeThisWayRule;
 import com.guigarage.marvfx.property.rules.WillNeverChangeRule;
+import com.guigarage.marvfx.property.rules.present.CurrentValueRule;
+import com.guigarage.marvfx.property.rules.present.AbstractPropertyPresentRule;
+import com.guigarage.marvfx.property.rules.present.ValueIsNotNullRule;
+import com.guigarage.marvfx.property.rules.present.ValueIsNullRule;
 import com.guigarage.marvfx.util.MarvinFxUtilities;
 
 public class PropertySupervisor<U> implements ChangeListener<U> {
 
 	private ObservableValue<U> observable;
 
-	private List<AbstractPropertyRule<U>> rules;
+	private List<AbstractPropertyFutureRule<U>> rules;
 
 	public PropertySupervisor(ObservableValue<U> observable) {
 		this.observable = observable;
@@ -31,99 +35,45 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 		rules = new ArrayList<>();
 	}
 
-	protected PropertyRuleObserver<U> addRule(AbstractPropertyRule<U> rule) {
+	protected PropertyRuleObserver<U> addFutureRule(AbstractPropertyFutureRule<U> rule) {
 		PropertyRuleObserver<U> observer = rule.createObserver();
 		rules.add(rule);
 		return observer;
 	}
 
 	public PropertyRuleObserver<U> assertWillChange() {
-		return addRule(new WillChangeRule<U>());
+		return addFutureRule(new WillChangeRule<U>());
 	}
 
 	public PropertyRuleObserver<U> assertWillNeverChange() {
-		return addRule(new WillNeverChangeRule<U>());
+		return addFutureRule(new WillNeverChangeRule<U>());
 	}
 
 	public PropertyRuleObserver<U> assertWillChangeByDefinedCount(int count) {
-		return addRule(new WillChangeByDefinedCountRule<U>(count));
+		return addFutureRule(new WillChangeByDefinedCountRule<U>(count));
 	}
 
 	@SuppressWarnings("unchecked")
 	public PropertyRuleObserver<U> assertWillChangeThisWay(U... assertedValues) {
-		return addRule(new WillChangeThisWayRule<U>(assertedValues));
+		return addFutureRule(new WillChangeThisWayRule<U>(assertedValues));
 	}
 
 	public void assertCurrentValue(final U value) {
-		Callable<Boolean> checkCallable = new Callable<Boolean>() {
-
-			@Override
-			public Boolean call() throws Exception {
-				if (observable == null && value != null) {
-					return Boolean.FALSE;
-				}
-				if (observable != null && value == null) {
-					return Boolean.FALSE;
-				}
-				if (observable.getValue().equals(value)) {
-					return Boolean.TRUE;
-				}
-				return Boolean.FALSE;
-			}
-		};
-		try {
-			if (!MarvinFxUtilities.runCallableInPlatformThread(checkCallable)) {
-				MarvinFx.getInstance().getFail().fail();
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		assertPresentRule(new CurrentValueRule<U>(value));
 	}
 
 	public void assertValueIsNull() {
-		Callable<Boolean> checkCallable = new Callable<Boolean>() {
-
-			@Override
-			public Boolean call() throws Exception {
-				if (observable.getValue() == null) {
-					return Boolean.TRUE;
-				}
-				return Boolean.FALSE;
-			}
-		};
-		try {
-			if (!MarvinFxUtilities.runCallableInPlatformThread(checkCallable)) {
-				MarvinFx.getInstance().getFail().fail();
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		assertPresentRule(new ValueIsNullRule<U>());
 	}
 
 	public void assertValueIsNotNull() {
-		Callable<Boolean> checkCallable = new Callable<Boolean>() {
-
-			@Override
-			public Boolean call() throws Exception {
-				if (observable.getValue() != null) {
-					return Boolean.TRUE;
-				}
-				return Boolean.FALSE;
-			}
-		};
-		try {
-			if (!MarvinFxUtilities.runCallableInPlatformThread(checkCallable)) {
-				MarvinFx.getInstance().getFail().fail();
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		assertPresentRule(new ValueIsNotNullRule<U>());
 	}
 
 	@Override
 	public void changed(ObservableValue<? extends U> observable, U oldValue,
 			U newValue) {
-		for (AbstractPropertyRule<U> rule : rules) {
+		for (AbstractPropertyFutureRule<U> rule : rules) {
 			rule.changed(observable, oldValue, newValue);
 		}
 	}
@@ -143,7 +93,7 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 
 			@Override
 			public RuleFail call() throws Exception {
-				for (AbstractPropertyRule<U> rule : rules) {
+				for (AbstractPropertyFutureRule<U> rule : rules) {
 					Iterator<RuleFail> iterator = rule.check().iterator();
 					if (iterator.hasNext()) {
 						return iterator.next();
@@ -165,5 +115,20 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 		}
 	}
 	
-	
+	public void assertPresentRule(final AbstractPropertyPresentRule<U> rule) {
+		Callable<Boolean> checkCallable = new Callable<Boolean>() {
+
+			@Override
+			public Boolean call() throws Exception {
+				return new Boolean(rule.check(getObservable()));
+			}
+		};
+		try {
+			if (!MarvinFxUtilities.runCallableInPlatformThread(checkCallable)) {
+				MarvinFx.getInstance().getFail().fail();
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

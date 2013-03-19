@@ -3,9 +3,9 @@ package com.guigarage.marvfx.property;
 
 public class PropertyRuleObserver<U> {
 
-	private AbstractPropertyRule<U> rule;
+	private AbstractPropertyFutureRule<U> rule;
 	
-	public PropertyRuleObserver(AbstractPropertyRule<U> rule) {
+	public PropertyRuleObserver(AbstractPropertyFutureRule<U> rule) {
 		this.rule = rule;
 	}
 	

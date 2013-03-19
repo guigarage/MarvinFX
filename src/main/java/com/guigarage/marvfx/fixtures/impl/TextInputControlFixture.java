@@ -1,20 +1,20 @@
-package com.guigarage.marvfx.fixtures;
+package com.guigarage.marvfx.fixtures.impl;
 
 import java.util.concurrent.Callable;
+
+import javafx.scene.Scene;
+import javafx.scene.control.TextInputControl;
 
 import com.guigarage.marvfx.property.PropertySupervisor;
 import com.guigarage.marvfx.util.MarvinFxUtilities;
 
-import javafx.scene.Scene;
-import javafx.scene.control.TextField;
+public class TextInputControlFixture<T extends TextInputControl> extends ControlFixture<T> {
 
-public class TextfieldFixture extends NodeFixture<TextField> {
-
-	public TextfieldFixture(Scene scene, String nodeId) {
+	public TextInputControlFixture(Scene scene, String nodeId) {
 		super(scene, nodeId);
 	}
 
-	public TextfieldFixture(TextField node) {
+	public TextInputControlFixture(T node) {
 		super(node);
 	}
 	

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import org.junit.Test;
 
 import com.guigarage.marvfx.fixtures.NodeFixture;
-import com.guigarage.marvfx.fixtures.TextfieldFixture;
+import com.guigarage.marvfx.fixtures.impl.TextfieldFixture;
 import com.guigarage.marvfx.property.PropertySupervisor;
 
 public class UnitTests {

@@ -1,8 +1,8 @@
 package com.guigarage.marvfx.property.rules;
 
-import com.guigarage.marvfx.property.AbstractPropertyRule;
+import com.guigarage.marvfx.property.AbstractPropertyFutureRule;
 
-public class WillNeverChangeRule<U> extends AbstractPropertyRule<U> {
+public class WillNeverChangeRule<U> extends AbstractPropertyFutureRule<U> {
 
 	private boolean touchAllowed;
 	

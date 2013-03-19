@@ -6,11 +6,11 @@ import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-public abstract class AbstractPropertyRule<U> implements ChangeListener<U>{
+public abstract class AbstractPropertyFutureRule<U> implements ChangeListener<U>{
 
 	private List<RuleFail> fails;
 	
-	public AbstractPropertyRule() {
+	public AbstractPropertyFutureRule() {
 		fails = new ArrayList<>();
 	}
 	
