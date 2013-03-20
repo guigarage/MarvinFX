@@ -2,11 +2,12 @@ package com.guigarage.marvfx.fixtures;
 
 import java.util.concurrent.Callable;
 
-import com.guigarage.marvfx.property.PropertySupervisor;
-import com.guigarage.marvfx.util.MarvinFxUtilities;
-
 import javafx.scene.Node;
 import javafx.scene.Scene;
+
+import com.guigarage.marvfx.property.PropertySupervisor;
+import com.guigarage.marvfx.property.impl.StringPropertySupervisor;
+import com.guigarage.marvfx.util.MarvinFxUtilities;
 
 public class NodeFixture<T extends Node> {
 
@@ -25,8 +26,8 @@ public class NodeFixture<T extends Node> {
 		this.node = node;
 	}
 
-	public PropertySupervisor<String> createPropertyMeterForId() {
-		return new PropertySupervisor<>(node.idProperty());
+	public StringPropertySupervisor createSupervisorForId() {
+		return new StringPropertySupervisor(node.idProperty());
 	}
 
 	public synchronized NodeMouseControl<T> mouse() {
