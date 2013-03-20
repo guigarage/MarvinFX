@@ -64,15 +64,15 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 	}
 
 	public void assertValueIsEquals(final U value) {
-		assertPresentRule(new isEqualsRule<U>(value));
+		checkAssertion(new isEqualsRule<U>(value));
 	}
 
 	public void assertValueIsNull() {
-		assertPresentRule(new ValueIsNullRule<U>());
+		checkAssertion(new ValueIsNullRule<U>());
 	}
 
 	public void assertValueIsNotNull() {
-		assertPresentRule(new ValueIsNotNullRule<U>());
+		checkAssertion(new ValueIsNotNullRule<U>());
 	}
 
 	@Override
@@ -121,14 +121,14 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 	}
 	
 	public void assertAny(AbstractPropertyPresentRule<U>... rules) {
-		assertPresentRule(new OrRule(rules));
+		checkAssertion(new OrRule(rules));
 	}
 	
 	public void assertAll(AbstractPropertyPresentRule<U>... rules) {
-		assertPresentRule(new AndRule(rules));
+		checkAssertion(new AndRule(rules));
 	}
 	
-	public void assertPresentRule(final AbstractPropertyPresentRule<U> rule) {
+	public void checkAssertion(final AbstractPropertyPresentRule<U> rule) {
 		Callable<Boolean> checkCallable = new Callable<Boolean>() {
 
 			@Override

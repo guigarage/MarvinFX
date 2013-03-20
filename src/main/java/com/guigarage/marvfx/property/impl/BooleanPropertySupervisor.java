@@ -13,10 +13,10 @@ public class BooleanPropertySupervisor extends PropertySupervisor<Boolean> {
 	}
 
 	public void assertValueIsTrue() {
-		assertPresentRule(new IsTrueRule());
+		checkAssertion(new IsTrueRule());
 	}
 	
 	public void assertValueIsFalse() {
-		assertPresentRule(new IsFalseRule());
+		checkAssertion(new IsFalseRule());
 	}
 }

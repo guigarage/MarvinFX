@@ -24,27 +24,27 @@ public class StringPropertySupervisor extends PropertySupervisor<String> {
 	}
 	
 	public void assertStringLenghtIsEquals(int lenght) {
-		assertPresentRule(new StringLengthIsEqualsRule(lenght));
+		checkAssertion(new StringLengthIsEqualsRule(lenght));
 	}
 	
 	public void assertStringLenghtIsGreaterThan(int lenght) {
-		assertPresentRule(new StringLenghtIsGreaterThanRule(lenght));
+		checkAssertion(new StringLenghtIsGreaterThanRule(lenght));
 	}
 	
 	public void assertStringLenghtIsLessThan(int lenght) {
-		assertPresentRule(new StringLenghtIsLessThanRule(lenght));
+		checkAssertion(new StringLenghtIsLessThanRule(lenght));
 	}
 	
 	public void assertStringIsEmpty() {
-		assertPresentRule(new StringIsEmptyRule());
+		checkAssertion(new StringIsEmptyRule());
 	}
 
 	public void assertStringStartsWith(final String prefix) {
-		assertPresentRule(new StringStartsWithRule(prefix));
+		checkAssertion(new StringStartsWithRule(prefix));
 	}
 	
 	public void assertStringEndsWith(final String suffix) {
-		assertPresentRule(new StringEndsWithRule(suffix));
+		checkAssertion(new StringEndsWithRule(suffix));
 	}
 	
 	public FutureRuleObserver<String> assertStringWillAlwaysStartWith(String prefix) {
