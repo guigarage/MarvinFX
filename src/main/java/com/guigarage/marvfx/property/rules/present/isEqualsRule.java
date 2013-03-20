@@ -2,11 +2,11 @@ package com.guigarage.marvfx.property.rules.present;
 
 import javafx.beans.value.ObservableValue;
 
-public class CurrentValueRule<U> extends AbstractPropertyPresentRule<U> {
+public class isEqualsRule<U> extends AbstractPropertyPresentRule<U> {
 
 	private U assertedValue;
 	
-	public CurrentValueRule(U assertedValue) {
+	public isEqualsRule(U assertedValue) {
 		this.assertedValue = assertedValue;
 	}
 	

@@ -1,7 +1,6 @@
-package com.guigarage.marvfx.property.rules;
+package com.guigarage.marvfx.property.rules.future;
 
-import com.guigarage.marvfx.property.AbstractPropertyFutureRule;
-import com.guigarage.marvfx.property.RuleFail;
+import com.guigarage.marvfx.property.rules.RuleFail;
 
 public class WillChangeThisWayRule<U> extends AbstractPropertyFutureRule<U> {
 

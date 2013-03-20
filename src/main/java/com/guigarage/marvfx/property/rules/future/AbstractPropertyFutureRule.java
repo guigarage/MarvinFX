@@ -1,12 +1,16 @@
-package com.guigarage.marvfx.property;
+package com.guigarage.marvfx.property.rules.future;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.guigarage.marvfx.property.rules.MarvinPropertyRule;
+import com.guigarage.marvfx.property.rules.RuleFail;
+import com.guigarage.marvfx.property.rules.RuleFailThrowable;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-public abstract class AbstractPropertyFutureRule<U> implements ChangeListener<U>{
+public abstract class AbstractPropertyFutureRule<U> implements ChangeListener<U>, MarvinPropertyRule<U>{
 
 	private List<RuleFail> fails;
 	
@@ -44,7 +48,7 @@ public abstract class AbstractPropertyFutureRule<U> implements ChangeListener<U>
 		return allFails;
 	}
 	
-	public PropertyRuleObserver<U> createObserver() {
-		return new PropertyRuleObserver<>(this);
+	public FutureRuleObserver<U> createObserver() {
+		return new FutureRuleObserver<>(this);
 	}
 }

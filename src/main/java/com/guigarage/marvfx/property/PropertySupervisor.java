@@ -9,11 +9,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 import com.guigarage.marvfx.MarvinFx;
-import com.guigarage.marvfx.property.rules.WillChangeByDefinedCountRule;
-import com.guigarage.marvfx.property.rules.WillChangeRule;
-import com.guigarage.marvfx.property.rules.WillChangeThisWayRule;
-import com.guigarage.marvfx.property.rules.WillNeverChangeRule;
-import com.guigarage.marvfx.property.rules.present.CurrentValueRule;
+import com.guigarage.marvfx.property.rules.RuleFail;
+import com.guigarage.marvfx.property.rules.future.AbstractPropertyFutureRule;
+import com.guigarage.marvfx.property.rules.future.FutureRuleObserver;
+import com.guigarage.marvfx.property.rules.future.WillChangeByDefinedCountRule;
+import com.guigarage.marvfx.property.rules.future.WillChangeRule;
+import com.guigarage.marvfx.property.rules.future.WillChangeThisWayRule;
+import com.guigarage.marvfx.property.rules.future.WillNeverChangeRule;
+import com.guigarage.marvfx.property.rules.present.isEqualsRule;
 import com.guigarage.marvfx.property.rules.present.AbstractPropertyPresentRule;
 import com.guigarage.marvfx.property.rules.present.ValueIsNotNullRule;
 import com.guigarage.marvfx.property.rules.present.ValueIsNullRule;
@@ -35,31 +38,31 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 		rules = new ArrayList<>();
 	}
 
-	protected PropertyRuleObserver<U> addFutureRule(AbstractPropertyFutureRule<U> rule) {
-		PropertyRuleObserver<U> observer = rule.createObserver();
+	protected FutureRuleObserver<U> addFutureRule(AbstractPropertyFutureRule<U> rule) {
+		FutureRuleObserver<U> observer = rule.createObserver();
 		rules.add(rule);
 		return observer;
 	}
 
-	public PropertyRuleObserver<U> assertWillChange() {
+	public FutureRuleObserver<U> assertWillChange() {
 		return addFutureRule(new WillChangeRule<U>());
 	}
 
-	public PropertyRuleObserver<U> assertWillNeverChange() {
+	public FutureRuleObserver<U> assertWillNeverChange() {
 		return addFutureRule(new WillNeverChangeRule<U>());
 	}
 
-	public PropertyRuleObserver<U> assertWillChangeByDefinedCount(int count) {
+	public FutureRuleObserver<U> assertWillChangeByDefinedCount(int count) {
 		return addFutureRule(new WillChangeByDefinedCountRule<U>(count));
 	}
 
 	@SuppressWarnings("unchecked")
-	public PropertyRuleObserver<U> assertWillChangeThisWay(U... assertedValues) {
+	public FutureRuleObserver<U> assertWillChangeThisWay(U... assertedValues) {
 		return addFutureRule(new WillChangeThisWayRule<U>(assertedValues));
 	}
 
 	public void assertCurrentValue(final U value) {
-		assertPresentRule(new CurrentValueRule<U>(value));
+		assertPresentRule(new isEqualsRule<U>(value));
 	}
 
 	public void assertValueIsNull() {

@@ -1,11 +1,13 @@
-package com.guigarage.marvfx.property;
+package com.guigarage.marvfx.property.rules.future;
+
+import com.guigarage.marvfx.property.rules.RuleFail;
 
 
-public class PropertyRuleObserver<U> {
+public class FutureRuleObserver<U> {
 
 	private AbstractPropertyFutureRule<U> rule;
 	
-	public PropertyRuleObserver(AbstractPropertyFutureRule<U> rule) {
+	public FutureRuleObserver(AbstractPropertyFutureRule<U> rule) {
 		this.rule = rule;
 	}
 	

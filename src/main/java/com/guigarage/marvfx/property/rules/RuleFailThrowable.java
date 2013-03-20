@@ -1,4 +1,4 @@
-package com.guigarage.marvfx.property;
+package com.guigarage.marvfx.property.rules;
 
 public class RuleFailThrowable extends Throwable {
 

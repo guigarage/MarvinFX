@@ -1,6 +1,5 @@
-package com.guigarage.marvfx.property.rules;
+package com.guigarage.marvfx.property.rules.future;
 
-import com.guigarage.marvfx.property.AbstractPropertyFutureRule;
 
 public class StringWillAlwaysStartWithRule extends AbstractPropertyFutureRule<String> {
 

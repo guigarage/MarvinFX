@@ -5,10 +5,10 @@ import java.util.concurrent.Callable;
 import javafx.beans.value.ObservableValue;
 
 import com.guigarage.marvfx.MarvinFx;
-import com.guigarage.marvfx.property.PropertyRuleObserver;
 import com.guigarage.marvfx.property.PropertySupervisor;
-import com.guigarage.marvfx.property.rules.StringWillAlwaysEndWithRule;
-import com.guigarage.marvfx.property.rules.StringWillAlwaysStartWithRule;
+import com.guigarage.marvfx.property.rules.future.FutureRuleObserver;
+import com.guigarage.marvfx.property.rules.future.StringWillAlwaysEndWithRule;
+import com.guigarage.marvfx.property.rules.future.StringWillAlwaysStartWithRule;
 import com.guigarage.marvfx.util.MarvinFxUtilities;
 
 public class StringPropertySupervisor extends PropertySupervisor<String> {
@@ -109,11 +109,11 @@ public class StringPropertySupervisor extends PropertySupervisor<String> {
 		}
 	}
 	
-	public PropertyRuleObserver<String> assertStringWillAlwaysStartWith(String prefix) {
+	public FutureRuleObserver<String> assertStringWillAlwaysStartWith(String prefix) {
 		return addFutureRule(new StringWillAlwaysStartWithRule(prefix));
 	}
 	
-	public PropertyRuleObserver<String> assertStringWillAlwaysEndWith(String suffix) {
+	public FutureRuleObserver<String> assertStringWillAlwaysEndWith(String suffix) {
 		return addFutureRule(new StringWillAlwaysEndWithRule(suffix));
 	}
 }
