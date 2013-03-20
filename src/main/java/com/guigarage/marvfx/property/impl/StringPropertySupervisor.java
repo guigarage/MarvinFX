@@ -9,6 +9,12 @@ import com.guigarage.marvfx.property.PropertySupervisor;
 import com.guigarage.marvfx.property.rules.future.FutureRuleObserver;
 import com.guigarage.marvfx.property.rules.future.StringWillAlwaysEndWithRule;
 import com.guigarage.marvfx.property.rules.future.StringWillAlwaysStartWithRule;
+import com.guigarage.marvfx.property.rules.present.StringEndsWithRule;
+import com.guigarage.marvfx.property.rules.present.StringIsEmptyRule;
+import com.guigarage.marvfx.property.rules.present.StringLenghtIsGreaterThanRule;
+import com.guigarage.marvfx.property.rules.present.StringLenghtIsLessThanRule;
+import com.guigarage.marvfx.property.rules.present.StringLengthIsEqualsRule;
+import com.guigarage.marvfx.property.rules.present.StringStartsWithRule;
 import com.guigarage.marvfx.util.MarvinFxUtilities;
 
 public class StringPropertySupervisor extends PropertySupervisor<String> {
@@ -16,97 +22,29 @@ public class StringPropertySupervisor extends PropertySupervisor<String> {
 	public StringPropertySupervisor(ObservableValue<String> observable) {
 		super(observable);
 	}
-
-	public void assertStringLenght(final int length) {
-		Callable<Boolean> checkCallable = new Callable<Boolean>() {
-
-			@Override
-			public Boolean call() throws Exception {
-				if(getObservable().getValue() == null) {
-					return Boolean.FALSE;
-				}
-				if (getObservable().getValue().length() == length) {
-					return Boolean.TRUE;
-				}
-				return Boolean.FALSE;
-			}
-		};
-		try {
-			if (!MarvinFxUtilities.runCallableInPlatformThread(checkCallable)) {
-				MarvinFx.getInstance().getFail().fail();
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+	
+	public void assertStringLenghtIsEquals(int lenght) {
+		assertPresentRule(new StringLengthIsEqualsRule(lenght));
+	}
+	
+	public void assertStringLenghtIsGreaterThan(int lenght) {
+		assertPresentRule(new StringLenghtIsGreaterThanRule(lenght));
+	}
+	
+	public void assertStringLenghtIsLessThan(int lenght) {
+		assertPresentRule(new StringLenghtIsLessThanRule(lenght));
 	}
 	
 	public void assertStringIsEmpty() {
-		Callable<Boolean> checkCallable = new Callable<Boolean>() {
-
-			@Override
-			public Boolean call() throws Exception {
-				if(getObservable().getValue() == null) {
-					return Boolean.FALSE;
-				}
-				if (getObservable().getValue().isEmpty()) {
-					return Boolean.TRUE;
-				}
-				return Boolean.FALSE;
-			}
-		};
-		try {
-			if (!MarvinFxUtilities.runCallableInPlatformThread(checkCallable)) {
-				MarvinFx.getInstance().getFail().fail();
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		assertPresentRule(new StringIsEmptyRule());
 	}
 
 	public void assertStringStartsWith(final String prefix) {
-		Callable<Boolean> checkCallable = new Callable<Boolean>() {
-
-			@Override
-			public Boolean call() throws Exception {
-				if(getObservable().getValue() == null) {
-					return Boolean.FALSE;
-				}
-				if (getObservable().getValue().startsWith(prefix)) {
-					return Boolean.TRUE;
-				}
-				return Boolean.FALSE;
-			}
-		};
-		try {
-			if (!MarvinFxUtilities.runCallableInPlatformThread(checkCallable)) {
-				MarvinFx.getInstance().getFail().fail();
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		assertPresentRule(new StringStartsWithRule(prefix));
 	}
 	
 	public void assertStringEndsWith(final String suffix) {
-		Callable<Boolean> checkCallable = new Callable<Boolean>() {
-
-			@Override
-			public Boolean call() throws Exception {
-				if(getObservable().getValue() == null) {
-					return Boolean.FALSE;
-				}
-				if (getObservable().getValue().endsWith(suffix)) {
-					return Boolean.TRUE;
-				}
-				return Boolean.FALSE;
-			}
-		};
-		try {
-			if (!MarvinFxUtilities.runCallableInPlatformThread(checkCallable)) {
-				MarvinFx.getInstance().getFail().fail();
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		assertPresentRule(new StringEndsWithRule(suffix));
 	}
 	
 	public FutureRuleObserver<String> assertStringWillAlwaysStartWith(String prefix) {

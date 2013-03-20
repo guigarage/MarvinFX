@@ -2,12 +2,12 @@ package com.guigarage.marvfx.property.rules.present;
 
 import javafx.beans.value.ObservableValue;
 
-public class StringEndsWithRule extends AbstractPropertyPresentRule<String> {
+public class StringLenghtIsGreaterThanRule extends AbstractPropertyPresentRule<String> {
 
-	private String suffix;
+	private int size;
 	
-	public StringEndsWithRule(String suffix) {
-		this.suffix = suffix;
+	public StringLenghtIsGreaterThanRule(int size) {
+		this.size = size;
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class StringEndsWithRule extends AbstractPropertyPresentRule<String> {
 		if(observable.getValue() == null) {
 			return false;
 		}
-		if (observable.getValue().endsWith(suffix)) {
+		if (observable.getValue().length() > size) {
 			return true;
 		}
 		return false;

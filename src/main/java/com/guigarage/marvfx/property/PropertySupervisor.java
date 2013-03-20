@@ -16,10 +16,12 @@ import com.guigarage.marvfx.property.rules.future.WillChangeByDefinedCountRule;
 import com.guigarage.marvfx.property.rules.future.WillChangeRule;
 import com.guigarage.marvfx.property.rules.future.WillChangeThisWayRule;
 import com.guigarage.marvfx.property.rules.future.WillNeverChangeRule;
-import com.guigarage.marvfx.property.rules.present.isEqualsRule;
 import com.guigarage.marvfx.property.rules.present.AbstractPropertyPresentRule;
+import com.guigarage.marvfx.property.rules.present.AndRule;
+import com.guigarage.marvfx.property.rules.present.OrRule;
 import com.guigarage.marvfx.property.rules.present.ValueIsNotNullRule;
 import com.guigarage.marvfx.property.rules.present.ValueIsNullRule;
+import com.guigarage.marvfx.property.rules.present.isEqualsRule;
 import com.guigarage.marvfx.util.MarvinFxUtilities;
 
 public class PropertySupervisor<U> implements ChangeListener<U> {
@@ -38,7 +40,7 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 		rules = new ArrayList<>();
 	}
 
-	protected FutureRuleObserver<U> addFutureRule(AbstractPropertyFutureRule<U> rule) {
+	public FutureRuleObserver<U> addFutureRule(AbstractPropertyFutureRule<U> rule) {
 		FutureRuleObserver<U> observer = rule.createObserver();
 		rules.add(rule);
 		return observer;
@@ -61,7 +63,7 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 		return addFutureRule(new WillChangeThisWayRule<U>(assertedValues));
 	}
 
-	public void assertCurrentValue(final U value) {
+	public void assertValueIsEquals(final U value) {
 		assertPresentRule(new isEqualsRule<U>(value));
 	}
 
@@ -116,6 +118,14 @@ public class PropertySupervisor<U> implements ChangeListener<U> {
 		} finally {
 			reset();
 		}
+	}
+	
+	public void assertAny(AbstractPropertyPresentRule<U>... rules) {
+		assertPresentRule(new OrRule(rules));
+	}
+	
+	public void assertAll(AbstractPropertyPresentRule<U>... rules) {
+		assertPresentRule(new AndRule(rules));
 	}
 	
 	public void assertPresentRule(final AbstractPropertyPresentRule<U> rule) {

@@ -2,23 +2,20 @@ package com.guigarage.marvfx.property.rules.present;
 
 import javafx.beans.value.ObservableValue;
 
-public class StringEndsWithRule extends AbstractPropertyPresentRule<String> {
+public class StringStartsWithRule extends AbstractPropertyPresentRule<String> {
 
-	private String suffix;
+	private String prefix;
 	
-	public StringEndsWithRule(String suffix) {
-		this.suffix = suffix;
+	public StringStartsWithRule(String prefix) {
+		this.prefix = prefix;
 	}
 
 	@Override
 	public boolean check(ObservableValue<String> observable) {
-		if(observable == null) {
-			return false;
-		}
 		if(observable.getValue() == null) {
 			return false;
 		}
-		if (observable.getValue().endsWith(suffix)) {
+		if (observable.getValue().startsWith(prefix)) {
 			return true;
 		}
 		return false;

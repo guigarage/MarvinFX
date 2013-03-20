@@ -5,7 +5,7 @@ import java.util.concurrent.Callable;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputControl;
 
-import com.guigarage.marvfx.property.PropertySupervisor;
+import com.guigarage.marvfx.property.impl.StringPropertySupervisor;
 import com.guigarage.marvfx.util.MarvinFxUtilities;
 
 public class TextInputControlFixture<T extends TextInputControl> extends ControlFixture<T> {
@@ -18,8 +18,8 @@ public class TextInputControlFixture<T extends TextInputControl> extends Control
 		super(node);
 	}
 	
-	public PropertySupervisor<String> createTextPropertySupervisor() {
-		return new PropertySupervisor<>(getNode().textProperty());
+	public StringPropertySupervisor createTextPropertySupervisor() {
+		return new StringPropertySupervisor(getNode().textProperty());
 	}
 	
 	public void setText(final String text) {

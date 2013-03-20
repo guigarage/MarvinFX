@@ -29,7 +29,7 @@ public class Test6 extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				PropertySupervisor<String> textPropertySupervisor = new PropertySupervisor<>(t1.textProperty());
-				textPropertySupervisor.assertCurrentValue("Hello");
+				textPropertySupervisor.assertValueIsEquals("Hello");
 				textPropertySupervisor.assertWillChange();
 				textPropertySupervisor.assertWillChangeByDefinedCount(1);
 				t1.setText("123");
