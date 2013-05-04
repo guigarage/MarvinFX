@@ -64,24 +64,6 @@
 			</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jar-plugin</artifactId>
-						<version>2.3.1</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<keystore>${keystore.path}</keystore>
-							<alias>guigarage.com</alias>
-							<storepass>${keystore.store.password}</storepass>
-							<keypass>${keystore.key.password}</keypass>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
 						<version>1.1</version>
 						<executions>
